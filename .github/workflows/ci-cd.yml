@@ -1,17 +1,20 @@
 name: CI/CD Task manager
+
 on: [ push ]
+
+env:
+  DATABASE_URL: {{ secrets.DATABASE_URL }}
+  JWT_ACCESS_TOKEN: {{ secrets.JWT_ACCESS_TOKEN }}
+  JWT_ACCESS_TOKEN_EXPIRATION: {{ secrets.JWT_ACCESS_TOKEN_EXPIRATION }}
+  JWT_REFRESH_TOKEN: {{ secrets.JWT_REFRESH_TOKEN }}
+  JWT_REFRESH_TOKEN_EXPIRATION: {{ secrets.JWT_REFRESH_TOKEN_EXPIRATION }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ '25.x' ]
-    env:
-      DATABASE_URL:
-      JWT_ACCESS_TOKEN: {{ secrets.JWT_ACCESS_TOKEN }}
-      JWT_ACCESS_TOKEN_EXPIRATION: {{ secrets.JWT_ACCESS_TOKEN_EXPIRATION }}
-      JWT_REFRESH_TOKEN: {{ secrets.JWT_REFRESH_TOKEN }}
-      JWT_REFRESH_TOKEN_EXPIRATION: {{ secrets.JWT_REFRESH_TOKEN_EXPIRATION }}
     steps:
       - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
